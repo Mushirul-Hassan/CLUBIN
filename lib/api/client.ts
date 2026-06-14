@@ -1,6 +1,6 @@
 import axios, {  AxiosError, InternalAxiosRequestConfig } from 'axios';
 import { useAuthStore } from '@/store/authStore';
-import { resolve } from 'path';
+
 
 const BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000';
 
@@ -24,7 +24,7 @@ apiClient.interceptors.request.use(
         return config;
     },
 
-    (error) = Promise.reject(error)
+    (error) => Promise.reject(error)
 );
 
 //res intercept (refresh)
@@ -72,7 +72,7 @@ apiClient.interceptors.response.use(
             try {
 
                 const { data } = await axios.post(
-                    `{BASE_URL}/api/admin/auth/refresh`,
+                    `${BASE_URL}/api/admin/auth/refresh`,
                     {},
                     { withCredentials: true }
                 );
