@@ -46,7 +46,7 @@ export interface Submission {
     dob: string;
     age: number;
     idType: IdType;
-    idNumber: string;
+    idNumber?: string;
     idDocumentUrl?: string; // only returned on single fetch
     selfieUrl: string;
     status: SubmissionStatus;
