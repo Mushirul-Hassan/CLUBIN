@@ -1,5 +1,5 @@
 // Auth 
-export type = AdminRole = 'ADMIN' | 'CLUB';
+export type  AdminRole = 'ADMIN' | 'CLUB';
 
 export interface Admin {
     fullName: string;
