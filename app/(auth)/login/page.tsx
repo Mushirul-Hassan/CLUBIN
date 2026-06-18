@@ -1,12 +1,12 @@
 import { LoginForm } from '@/components/auth/LoginForm';
-// import { ThemeToggle } from '@/components/ui/ThemeToggle';
+import { ThemeToggle } from '@/components/ui/ThemeToggle';
 
 export default function LoginPage() {
   return (
     <div className="min-h-screen bg-background flex flex-col">
-      {/* <div className="absolute top-4 right-4">
+      <div className="absolute top-4 right-4">
         <ThemeToggle />
-      </div> */}
+      </div>
 
       <div className="flex-1 flex items-center justify-center p-6">
         <div className="w-full max-w-sm space-y-8">
