@@ -7,7 +7,7 @@
   --color-surface: hsl(240 10% 7%);
   --color-surface-raised: hsl(240 9% 12%);
   --color-border: hsl(240 8% 18%);
-  --color-primary: hsl(263 70% 58%);
+  --color-primary: hsl(240 6% 60%);
   --color-primary-foreground: hsl(0 0% 100%);
   --color-muted: hsl(240 9% 12%);
   --color-muted-foreground: hsl(240 5% 55%);
@@ -30,7 +30,7 @@
   --color-surface: hsl(0 0% 100%);
   --color-surface-raised: hsl(240 5% 96%);
   --color-border: hsl(240 6% 88%);
-  --color-primary: hsl(263 70% 50%);
+  --color-primary: hsl(240 6% 40%);
   --color-muted: hsl(240 5% 92%);
   --color-muted-foreground: hsl(240 4% 46%);
   --color-card: hsl(0 0% 100%);
@@ -65,10 +65,13 @@
 @layer utilities {
   .clubin-glow {
     box-shadow:
-      0 0 60px -10px hsl(263 70% 58% / 0.4),
-      0 0 120px -20px hsl(263 70% 58% / 0.2);
+      0 0 60px -10px hsl(0 0% 100% / 0.12),
+      0 0 120px -20px hsl(0 0% 100% / 0.06);
   }
-  .clubin-glow-sm {
-    box-shadow: 0 0 20px -4px hsl(263 70% 58% / 0.3);
+
+  .light .clubin-glow {
+    box-shadow:
+      0 0 40px -10px hsl(240 10% 20% / 0.15),
+      0 0 80px -20px hsl(240 10% 20% / 0.08);
   }
 }
