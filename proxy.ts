@@ -35,12 +35,12 @@ export function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl
   const refreshCookie = request.cookies.get('jwt_refresh')
 
-  // Already logged in + trying to visit login → go to dashboard
+  // Already logged in + trying to visit login - go to dashboard
   if (pathname === '/login' && refreshCookie) {
     return NextResponse.redirect(new URL('/', request.url))
   }
 
-  // Not logged in + trying to visit protected route → go to login
+  // Not logged in + trying to visit protected route - go to login
   if (pathname !== '/login' && !refreshCookie) {
     const loginUrl = new URL('/login', request.url)
     loginUrl.searchParams.set('from', pathname)
