@@ -33,13 +33,18 @@ const idTypeLabel: Record<string, string> = {
 export default function SubmissionsPage() {
   const router = useRouter();
   const [activeTab, setActiveTab] = useState<SubmissionStatus>('PENDING');
+  const [submissions, setSubmissions] = useState<Submission[]>([]);
+  const [total, setTotal] = useState(0);
   const [loading, setLoading] = useState(true);
+
 
   const fetchSubmissions = useCallback(async (status: SubmissionStatus) => {
     setLoading(true);
     try {
       const res = await submissionsApi.getAll({ status, limit: 50 });
-    
+      setSubmissions(res.submissions);
+      setTotal(res.total);
+
     } catch {
       toast.error('Failed to load submissions');
     } finally {
@@ -53,13 +58,13 @@ export default function SubmissionsPage() {
 
   const handleTabChange = (status: SubmissionStatus) => {
     setActiveTab(status);
-  
+    setSubmissions([]);
+
   };
 
   return (
     <div className="space-y-5">
 
-      {/* Tabs */}
       <div className="flex items-center gap-1 bg-[hsl(var(--surface))] border border-border rounded-xl p-1 w-fit">
         {tabs.map((tab) => (
           <button
@@ -74,15 +79,61 @@ export default function SubmissionsPage() {
           >
             <tab.icon size={14} className={activeTab === tab.value ? tab.color : ''} />
             {tab.label}
-            {activeTab === tab.value && (
+            {activeTab === tab.value && total > 0 && (
               <span className="bg-primary/20 text-primary text-[10px] font-bold px-1.5 py-0.5 rounded-full">
-                hi
+                {total}
               </span>
             )}
           </button>
         ))}
       </div>
-</div>
-
+      <div className="bg-[hsl(var(--surface))] border border-border rounded-xl overflow-hidden">
+        <div className="grid grid-cols-[2fr_1fr_1fr_1fr_1fr_40px] gap-4 px-5 py-3 border-b border-border">
+          {['Name', 'Age', 'ID Type', 'Status', 'Submitted', ''].map((h) => (
+            <p key={h} className="text-[11px] uppercase tracking-widest text-muted-foreground font-medium">
+              {h}
+            </p>
+          ))}
+        </div>
+        {loading ? (
+          <div className="flex items-center justify-center py-16">
+            <Loader2 size={20} className="animate-spin text-muted-foreground" />
+          </div>
+        ) : submissions.length === 0 ? (
+          <div className="flex flex-col items-center justify-center py-16 text-muted-foreground">
+            <p className="text-sm">No {activeTab.toLowerCase()} submissions</p>
+          </div>
+        ) : (
+          submissions.map((sub, i) => (
+            <button
+              key={sub._id}
+              onClick={() => router.push(`/submissions/${sub._id}`)}
+              className={cn(
+                'grid grid-cols-[2fr_1fr_1fr_1fr_1fr_40px] gap-4 px-5 py-4 w-full text-left transition-colors hover:bg-[hsl(var(--surface-raised))] group',
+                i !== submissions.length - 1 && 'border-b border-border/50'
+              )}
+            >
+              <p className="text-sm font-medium text-foreground truncate">{sub.name}</p>
+              <p className="text-sm text-foreground">{sub.age}</p>
+              <p className="text-sm text-muted-foreground">{idTypeLabel[sub.idType] || sub.idType}</p>
+              <div>
+                <span className={cn(
+                  'text-[11px] font-medium px-2 py-1 rounded-full border',
+                  statusBadge[sub.status]
+                )}>
+                  {sub.status}
+                </span>
+              </div>
+              <p className="text-sm text-muted-foreground">
+                {new Date(sub.createdAt).toLocaleDateString('en-IN', {
+                  day: '2-digit', month: 'short', year: 'numeric'
+                })}
+              </p>
+              <ChevronRight size={16} className="text-muted-foreground group-hover:text-foreground transition-colors" />
+            </button>
+          ))
+        )}
+      </div>
+    </div>
   );
 }
