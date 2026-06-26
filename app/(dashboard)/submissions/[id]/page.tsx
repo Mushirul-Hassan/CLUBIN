@@ -101,7 +101,7 @@ function ReasonModal({
 function InfoRow({ icon: Icon, label, value, mono = false }: {
   icon: React.ElementType;
   label: string;
-  value: string | number;
+  value?: string | number;
   mono?: boolean;
 }) {
   return (

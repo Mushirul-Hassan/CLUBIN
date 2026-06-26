@@ -37,14 +37,12 @@ export default function SubmissionsPage() {
   const [total, setTotal] = useState(0);
   const [loading, setLoading] = useState(true);
 
-
   const fetchSubmissions = useCallback(async (status: SubmissionStatus) => {
     setLoading(true);
     try {
       const res = await submissionsApi.getAll({ status, limit: 50 });
       setSubmissions(res.submissions);
       setTotal(res.total);
-
     } catch {
       toast.error('Failed to load submissions');
     } finally {
@@ -59,12 +57,12 @@ export default function SubmissionsPage() {
   const handleTabChange = (status: SubmissionStatus) => {
     setActiveTab(status);
     setSubmissions([]);
-
   };
 
   return (
     <div className="space-y-5">
 
+      {/* Tabs */}
       <div className="flex items-center gap-1 bg-[hsl(var(--surface))] border border-border rounded-xl p-1 w-fit">
         {tabs.map((tab) => (
           <button
@@ -87,7 +85,11 @@ export default function SubmissionsPage() {
           </button>
         ))}
       </div>
+
+      {/* Table */}
       <div className="bg-[hsl(var(--surface))] border border-border rounded-xl overflow-hidden">
+
+        {/* Table header */}
         <div className="grid grid-cols-[2fr_1fr_1fr_1fr_1fr_40px] gap-4 px-5 py-3 border-b border-border">
           {['Name', 'Age', 'ID Type', 'Status', 'Submitted', ''].map((h) => (
             <p key={h} className="text-[11px] uppercase tracking-widest text-muted-foreground font-medium">
@@ -95,6 +97,8 @@ export default function SubmissionsPage() {
             </p>
           ))}
         </div>
+
+        {/* Rows */}
         {loading ? (
           <div className="flex items-center justify-center py-16">
             <Loader2 size={20} className="animate-spin text-muted-foreground" />
