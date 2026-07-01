@@ -144,7 +144,7 @@ export default function VerificationPage() {
                     </div>
                 )}
 
-                <div className="grid grid-cols-[1fr_320px] gap-5">
+                <div className="grid grid-cols gap-5">
                     <div className="space-y-5">
                         <div className="grid grid-cols-2 gap-4">
                             {/* Live Selfie */}
@@ -202,7 +202,7 @@ export default function VerificationPage() {
                             <InfoRow icon={Calendar} label="Date of Birth" value={new Date(submission.dob).toLocaleDateString('en-IN', { day: '2-digit', month: 'long', year: 'numeric' })} />
                             <InfoRow icon={Calendar} label="Age" value={`${submission.age} years old${isUnderage ? ' ⚠️ Underage' : ' ✅'}`} />
                             <InfoRow icon={CreditCard} label="ID Type" value={submission.idType.replace('_', ' ')} />
-                            <InfoRow icon={CreditCard} label="ID Number" value={submission.idNumber} mono />
+                            <InfoRow icon={CreditCard} label="ID Number" value={submission?.idNumber} mono />
                             <InfoRow icon={Smartphone} label="Device ID" value={submission.deviceId} mono />
                             <InfoRow icon={Clock} label="Submitted" value={new Date(submission.createdAt).toLocaleString('en-IN', { day: '2-digit', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' })} />
                             {submission.ticketNumber && <InfoRow icon={CheckCircle} label="Ticket Number" value={submission.ticketNumber} mono />}
