@@ -89,5 +89,54 @@ export function ActionButtons({
         );
     }
 
+    if (status === 'REJECTED') {
+        return (
+            <div className="bg-[hsl(var(--surface))] border border-border rounded-xl p-4">
+                <p className="text-xs uppercase tracking-widest text-muted-foreground mb-3 font-medium">
+                    Actions
+                </p>
+                 <div className="grid grid-cols-3 gap-3">
+                <Button
+                    onClick={onApprove}
+                    disabled={actionLoading || isUnderage}
+                    variant="outline"
+                    className="bg-success hover:bg-success/90 text-white font-semibold"
+                >
+                    <CheckCircle size={15} className="mr-2" />
+                    Override & Approve
+                </Button>
+                <Button
+                    onClick={() => onSetModal('ban')}
+                    disabled={actionLoading}
+                    variant="outline"
+                    className="border-destructive/30 text-destructive hover:bg-destructive/10 hover:text-destructive font-semibold"
+                >
+                    <ShieldBan size={15} className="mr-2" />
+                    Ban
+                </Button>
+                </div>
+            </div>
+        );
+    }
+
+    if (status === 'BANNED') {
+        return (
+            <div className="bg-[hsl(var(--surface))] border border-border rounded-xl p-4">
+                <p className="text-xs uppercase tracking-widest text-muted-foreground mb-3 font-medium">
+                    Actions
+                </p>
+                <Button
+                    onClick={onApprove}
+                    disabled={actionLoading || isUnderage}
+                    variant="outline"
+                    className="bg-success hover:bg-success/90 text-white font-semibold"
+                >
+                    <CheckCircle size={15} className="mr-2" />
+                    Override & Approve
+                </Button>
+            </div>
+        );
+    }
+
     return null;
 }
