@@ -16,10 +16,10 @@ export interface NavItem {
 }
 
 export const navItems: NavItem[] = [
-    { label: 'Overview', href: '/', icon: LayoutDashboard },
+    { label: 'Overview', href: '/', icon: LayoutDashboard,comingSoon: true },
     { label: 'Submissions', href: '/submissions', icon: ClipboardList },
-    { label: 'Verified Users', href: '/users', icon: Users },
+    { label: 'Verified Users', href: '/users', icon: Users, comingSoon: true},
     { label: 'Clubs', href: '/clubs', icon: Building2, comingSoon: true },
     { label: 'Events', href: '/events', icon: CalendarDays, comingSoon: true },
-    { label: 'Settings', href: '/settings', icon: Settings },
+    { label: 'Settings', href: '/settings', icon: Settings,comingSoon: true },
 ]
